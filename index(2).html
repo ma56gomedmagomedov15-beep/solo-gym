@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solo Leveling — Спортивная Система</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#9d4edd">
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<!-- ПЕРВЫЙ ЗАПУСК -->
+<div id="setup-screen" class="setup-screen hidden">
+  <div class="setup-box">
+    <p class="system-line">[ СИСТЕМА ]</p>
+    <h1>ДОБРО ПОЖАЛОВАТЬ, ОХОТНИК</h1>
+    <p class="setup-text">Твоё тело слабо. Но каждая тренировка делает тебя сильнее.</p>
+    <p class="setup-text">Качайся — получай опыт — повышай уровень и ранг.</p>
+    <input id="player-name-input" type="text" placeholder="Введи своё имя, охотник..." maxlength="20">
+    <button id="start-btn" class="btn-glow">НАЧАТЬ ТРЕНИРОВКИ</button>
+  </div>
+</div>
+
+<!-- ГЛАВНЫЙ ЭКРАН -->
+<div id="main-screen" class="hidden">
+  <header>
+    <div class="header-left">
+      <div class="rank-badge" id="rank-badge">E</div>
+      <div>
+        <h1 id="player-name">Охотник</h1>
+        <p class="header-sub">Уровень <span id="player-level">1</span> · Ранг <span id="player-rank">E</span></p>
+      </div>
+    </div>
+    <button id="reset-btn" class="btn-danger" title="Сбросить прогресс">⟲ Сброс</button>
+  </header>
+
+  <!-- ПАНЕЛЬ ПРОГРЕССА -->
+  <section class="panel xp-panel">
+    <div class="xp-info">
+      <span>ОПЫТ</span>
+      <span><span id="xp-current">0</span> / <span id="xp-needed">100</span> XP</span>
+    </div>
+    <div class="xp-bar">
+      <div class="xp-fill" id="xp-fill"></div>
+    </div>
+    <div class="xp-totals">
+      <span>🏋️ Тренировок: <b id="total-workouts">0</b></span>
+      <span>🔥 Всего опыта: <b id="total-xp">0</b></span>
+    </div>
+  </section>
+
+  <!-- ХАРАКТЕРИСТИКИ -->
+  <section class="panel">
+    <div class="panel-title">
+      <h2>⚔ ХАРАКТЕРИСТИКИ ТЕЛА</h2>
+      <span class="stat-points">Свободные очки: <b id="stat-points">0</b></span>
+    </div>
+    <div class="stats-grid" id="stats-grid"></div>
+  </section>
+
+  <!-- ТРЕНИРОВКА -->
+  <section class="panel">
+    <div class="panel-title"><h2>💪 ЗАПИСАТЬ ТРЕНИРОВКУ</h2></div>
+    <form id="workout-form" class="quest-form">
+      <select id="exercise-select"></select>
+      <input id="reps-input" type="number" min="1" max="10000" placeholder="Кол-во" required>
+      <button type="submit" class="btn-glow">+ XP</button>
+    </form>
+    <p class="hint" id="exercise-hint"></p>
+  </section>
+
+  <!-- ЦЕЛИ -->
+  <section class="panel">
+    <div class="panel-title"><h2>🎯 ЦЕЛИ НЕДЕЛИ</h2></div>
+    <form id="quest-form" class="quest-form">
+      <input id="quest-title" type="text" placeholder="Например: 5 тренировок за неделю..." maxlength="60" required>
+      <select id="quest-difficulty">
+        <option value="easy">Лёгкая · 50 XP</option>
+        <option value="medium" selected>Средняя · 150 XP</option>
+        <option value="hard">Сложная · 400 XP</option>
+      </select>
+      <button type="submit" class="btn-glow">+ Добавить</button>
+    </form>
+    <ul id="quest-list" class="quest-list"></ul>
+    <p id="empty-quests" class="empty-msg">Целей нет. Система ожидает твоих планов...</p>
+  </section>
+
+  <!-- ИСТОРИЯ -->
+  <section class="panel">
+    <div class="panel-title"><h2>📖 ЖУРНАЛ СИСТЕМЫ</h2></div>
+    <ul id="history-list" class="history-list"></ul>
+    <ul id="log-list" class="log-list"></ul>
+  </section>
+</div>
+
+<!-- УВЕДОМЛЕНИЕ -->
+<div id="notification" class="notification hidden"></div>
+
+<script>
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
+<script src="app.js"></script>
+</body>
+</html>
